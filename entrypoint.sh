@@ -90,15 +90,12 @@ persistence_setup() {
                             
 external_config() {         
     echo "include ${EXTERNAL_CONFIG_FILE}" >> /etc/redis/redis.conf
-    echo "" >> /data/1.conf
-    echo "/data/1.conf" >> /etc/redis/redis.conf
 }                           
                             
 start_redis() {             
     if [[ "${SETUP_MODE}" == "cluster" ]]; then
         echo "Starting redis service in cluster mode....."
         redis-server /etc/redis/redis.conf --cluster-announce-ip "${POD_IP}"
-        #redis-server /etc/redis/redis.conf
     else                    
         echo "Starting redis service in standalone mode....."
         redis-server /etc/redis/redis.conf
